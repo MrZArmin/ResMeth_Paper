@@ -1,0 +1,31 @@
+\section{Introduction and Motivation}
+\label{sec:introduction}
+
+Object detection is one of the fundamental tasks in computer vision, and has recently achieved tremendous success \cite{Ren2015FasterRCNN}.
+Nevertheless, the detection of small objects remains a considerable open challenge.
+Objects of small size are usually defined as objects occupying a small pixel area in an image, including less than $32 \times 32$ pixels, and usually present unique challenges to standard detection frameworks.
+
+Each of these difficulties arises for many reasons.
+Deriving distinguishing features is difficult to begin with due to the small number of pixels. The limited size of small objects introduces low-resolution and blurriness problems quite often.
+Small objects are more vulnerable to occlusion, as they can be partially blocked by other objects or by being in cluttered areas.
+
+Second, small objects may get lost during down-sampling operations (i.e., pooling layers) which are common in deep CNNs \cite{He2016ResNet}.
+
+Third, the shortage of dedicated datasets with a focus on small objects, especially in real-world scenarios like aerial imagery or industrial scenes, restricts the models' ability to learn robust features for small object detection.
+
+Despite these challenges, the accurate detection of small objects is critical for a wide range of real-world applications.
+\begin{itemize}
+    \item \textbf{Autonomous Driving:} Detecting distant pedestrians, cyclists, and traffic signs is crucial for safety \cite{Geiger2012KITTI}.
+    \item \textbf{Aerial/Satellite Imagery:} Identifying objects of interest (e.g., vehicles, buildings) in high-resolution satellite or drone footage (UAV) \cite{zhu2023visdrone, xia2018dota}.
+    \item \textbf{Medical Imaging:} Locating small lesions, polyps, or microaneurysms in medical scans.
+    \item \textbf{Industrial Inspection:} Spotting tiny defects or components on a manufacturing line.
+\end{itemize}
+
+Many techniques have been proposed, but there is often a trade-off between speed and accuracy, or a method that works well for large objects fails on small ones.
+In this paper, we address this trade-off by proposing the \textbf{Slicing-Aided Transformer Network (SAT-Net)}, a novel hybrid inference pipeline. Our approach merges the strengths of three complementary techniques: (1) \textbf{Slicing-Aided Hyper Inference (SAHI)} \cite{aksoy2022slicing}, which preserves high-resolution details by processing image patches; (2) \textbf{Super-Resolution (SR)} \cite{li2025superresolution}, which restores fine-grained spatial detail within those patches; and (3) a \textbf{transformer-based feature extractor} \cite{zhu2021deformable} with a \textbf{bidirectional feature pyramid (BiFPN)} \cite{tan2020efficientdet}, designed to capture robust global and local context. This combination allows our model to detect objects at their original scale with enhanced feature quality, leading to the performance gains demonstrated in our experiments.
+
+This paper is structured as follows:
+Section~\ref{sec:related_work} provides a review of existing literature on small object detection.
+Section~\ref{sec:methodology} details our proposed hybrid pipeline.
+Section~\ref{sec:experiments} presents the experimental setup, datasets, and a comparative analysis of the results.
+Finally, Section~\ref{sec:conclusion} concludes the paper and suggests directions for future work.

@@ -1,0 +1,80 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- CORE PACKAGES ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=none
+]{biblatex}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% --- PAGE GEOMETRY ---
+\geometry{
+    a4paper,
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm
+}
+
+% --- BIBLIOGRAPHY ---
+\addbibresource{res_meth.bib}
+
+% --- DOCUMENT METADATA ---
+\title{A Hybrid Approach for Small Object Detection}
+\author{
+    Zrinszki Ármin \\
+    Noor Saad \\
+    Gambarli Ilkin \\
+    Kéry Imola Vivien
+}
+\date{\today}
+
+% --- BEGIN DOCUMENT ---
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+% --- ABSTRACT ---
+\begin{abstract}
+    Small object detection is a significant challenge and is still an open problem in computer vision. Standard detectors often fail due to severe loss of high-resolution feature information and indistinct spatial details caused by deep network down-sampling. In this paper, we propose a Slicing-Aided Transformer Network (SAT-Net), a novel hybrid inference pipeline targeted at handling the challenges in detecting small objects. In our method, three key components are used: 1) slicing-aided hyper inference to preserve the original object scale, 2) a light-weight super-resolution network to restore fine-grained detail on each patch, and 3) a transformer-based detector with a Bidirectional Feature Pyramid Network (BiFPN) to ensure robust contextual feature extraction. We evaluated our method on a challenging small pedestrian dataset curated from MS COCO and SODA-D. We achieved an $AP_{50}$ of $39.7$, and an F1-Score of $0.80$, significantly outperforming several established baselines, including RetinaNet, YOLOX, and CornerNet. These results confirm, that this pipeline is an effective way to boost the performance of small object detection.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% --- SECTION INCLUDES ---
+\include{introduction}
+\include{related_work}
+\include{methodology}
+\include{experiments}
+
+% --- CONCLUSION ---
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this paper, we talked about the still persistent challenge of small object detection. We pointed out the main sources of this problem, such as information loss and the lack of specialized datasets.
+
+To overcome these issues, we introduced the Slicing-Aided Transformer Network (SAT-Net) a hybrid inference pipeline. Our method is not a monolithic architecture but a clever integration of three well known techniques: (1)Slicing-Aided Hyper Infer-
+ence (SAHI), (2) Super Resolution (SR) network and (3) a Transfomer-based detector.
+
+Our experimental results on datasets from MS COCO and SODA-D validate the efficacy of this combined approach. The proposed SAT-Net achieved an $AP_{50}$ of $39.7$ and an F1-Score of $0.80$, consistently outperforming established baseline detectors like RetinaNet, YOLOX, and CornerNet in all evaluated metrics. The substantial improvement, particularly in $AP_{50}$, indicates that our method generates more precise bounding box localizations, which is a critical factor in small object detection.
+
+Despite these promising results, our work does have certain limitations. The multi-stage nature of the SAT-Net pipeline, including slicing, SR, detection, and merging, introduces considerable computational overhead and is not optimized for real-time applications. Future work should focus on optimizing this pipeline. This may consider end-to-end training of the SR and detection components or apply model quantization and knowledge distillation for an efficient model without significant loss of accuracy. Lastly, we would like to assess the SAT-Net performance on other specialized small-object domains, such as medical imaging and satellite-based remote sensing.
+
+% --- BIBLIOGRAPHY ---
+\printbibliography[title={References}]
+
+\end{document}

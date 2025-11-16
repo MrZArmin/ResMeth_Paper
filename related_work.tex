@@ -1,0 +1,18 @@
+\section{Related Work}
+\label{sec:related_work}
+
+Small-object detection (SOD) remains one of the most challenging sub-problems in computer vision. Traditional detectors often fail because semantic and localization cues vanish through the network's down-sampling hierarchy. Recent surveys on SOD emphasize that performance is driven primarily by three design factors: (1) feature resolution preservation, (2) context aggregation, and (3) scale-aware inference strategies.
+
+\subsection{Key Evidence Supporting Each Component}
+
+\begin{itemize}
+    \item \textbf{Slicing-Based Inference:} Standard detectors struggle when an object's pixel footprint is minimal. Slicing-Aided Hyper Inference (SAHI) has been shown to improve small-object AP by 5--14\% without retraining, simply by performing inference on high-resolution patches, which improves scale normalization \cite{aksoy2022slicing}.
+
+    \item \textbf{Super-Resolution Priors:} An intuitive solution to low-pixel information is to add more pixels. Lightweight super-resolution (SR) networks, when integrated as a pre-processing step for detectors, have been shown to improve recall and mAP, especially for objects smaller than 20 pixels in UAV imagery \cite{li2025superresolution}.
+
+    \item \textbf{Transformer-Based Detection:} To compensate for the limited context within any single patch, a robust feature extractor is required. Transformer-based models like Deformable DETR \cite{zhu2021deformable} and DINO \cite{zhang2023dino} excel here. Their self-attention mechanisms capture global dependencies, and deformable attention specifically increases small-object performance by focusing on sparse keypoints rather than full feature maps.
+
+    \item \textbf{Multi-Scale Feature Fusion:} Finally, enhanced pyramid modules like BiFPN \cite{tan2020efficientdet} provide stronger propagation of high-resolution features. By allowing bidirectional information flow, they enrich the high-resolution feature maps (critical for small objects) with semantic context from deeper layers, leading to 2--4\% mAP improvements over baseline FPNs in datasets like VisDrone \cite{zhu2023visdrone, fu2025bpdyolo}.
+\end{itemize}
+
+Based on this evidence, our methodology is not a single novel architecture, but a carefully engineered pipeline that combines these four validated techniques.
